@@ -14,7 +14,12 @@ module.exports = {
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery'
-    })
+    }),
+	new webpack.optimize.UglifyJsPlugin({
+		compressor:{
+			warnings:false
+		}
+	})
   ],
   output: {
     path: __dirname,
@@ -28,7 +33,10 @@ module.exports = {
       './app/api'
     ],
     alias: {
-      applicationStyles: 'app/styles/app.scss'
+      applicationStyles: 'app/styles/app.scss',
+      actions: 'app/actions/actions.jsx',
+      reducers: 'app/reducers/reducers.jsx',
+      configureStore: 'app/store/configureStore.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },
@@ -48,7 +56,6 @@ module.exports = {
     includePaths: [
       path.resolve(__dirname, './node_modules/foundation-sites/scss')
     ]
-  }
-  /*,
+  }/*,
   devtool: 'cheap-module-eval-source-map'*/
 };
