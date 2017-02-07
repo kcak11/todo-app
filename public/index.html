@@ -1,13 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html author="kcak11@1.0.1">
 
 <head>
+  <title>TODO App</title>
   <meta charset="UTF-8"/>
 </head>
 
-<body>
+<body style="overflow-y:scroll;">
   <div id="app"></div>
-
+  <span id="callout-msg" style="display:inline-block;width:400px;visibility:hidden;position:absolute;left:50%;margin-left:-200px;font-size:11px;font-family:Verdana;">
+    **This application currently uses the browser's storage mechanism for persisting your TODOs. Hence make sure that you do not clear the browsers localStorage, else the TODOs will be lost. Also browsing in "Incognito / Private Browsing" mode will not persist the TODOs. A future version of this App will support Database persistence of your TODOs.
+  </span>
+  <script type="text/javascript">
+  var appElem=document.getElementById("app");
+  var checkAndShowMessage=function(){
+    if(appElem.innerHTML.length){
+      document.getElementById("callout-msg").style.visibility="visible";
+    }else{
+      setTimeout(function(){
+        checkAndShowMessage();
+      },100);
+    }
+  };
+  checkAndShowMessage();
+  </script>  
   <script src="bundle.js"></script>
 </body>
 
