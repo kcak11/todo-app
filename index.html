@@ -13,17 +13,33 @@
     **This application currently uses the browser's storage mechanism for persisting your TODOs. Hence make sure that you do not clear the browsers localStorage, else the TODOs will be lost. Also browsing in "Incognito / Private Browsing" mode will not persist the TODOs. <br/><br/>A future version of this App will support Database persistence of your TODOs.
   </span>
   <script type="text/javascript">
-  var appElem=document.getElementById("app");
-  var checkAndShowMessage=function(){
-    if(appElem.innerHTML.length){
-      document.getElementById("callout-msg").style.visibility="visible";
-    }else{
-      setTimeout(function(){
-        checkAndShowMessage();
-      },100);
-    }
-  };
-  checkAndShowMessage();
+    var dimDiv = document.createElement("div");
+    dimDiv.id = "__dimDiv__";
+    dimDiv.style.position = "absolute";
+    dimDiv.style.left = dimDiv.style.right = 0;
+    dimDiv.style.visibility = "hidden";
+    document.querySelector("body").appendChild(dimDiv);
+    var adjustMsgSize = function() {
+        var w = Math.min(400, (dimDiv.offsetWidth - 20));
+        var callOutMsg = document.querySelector("#callout-msg");
+        callOutMsg.style.width = w + "px";
+        callOutMsg.style.marginLeft = (-1 * (w / 2)) + "px";
+    };
+    adjustMsgSize();
+    window.onresize = function() {
+        adjustMsgSize();
+    };
+    var appElem = document.getElementById("app");
+    var checkAndShowMessage = function() {
+        if (appElem.innerHTML.length) {
+            document.getElementById("callout-msg").style.visibility = "visible";
+        } else {
+            setTimeout(function() {
+                checkAndShowMessage();
+            }, 100);
+        }
+    };
+    checkAndShowMessage();
   </script>  
   <script src="bundle.js"></script>
 </body>
